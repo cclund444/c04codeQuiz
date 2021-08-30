@@ -12,6 +12,8 @@ body{
 
 .start_btn,
 .info_box,
+.button,
+.generateQuiz,
 .quiz_box,
 .result_box{
 	position: absolute;
