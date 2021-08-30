@@ -4,11 +4,14 @@ const myQuestions = document.getElementById('myQuestions')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
 const startButton = generateQuiz
-
-
 let  shuffledQuestions, currentQuestionsIndex
+// attempt 3
 
-startButton ('click', startQuiz)
+// generateQuiz = document.querySelector('start-btn');
+
+// attempt 1
+function startButton (myQuestions)
+<button onclick='start'>Start Quiz</button>
 nextButton.addEventListener('click', () => {
     currentQuestionsIndex++
     setNextQuestion()
@@ -100,21 +103,13 @@ const questions = [
 
 
 
+// attemp2 bellow
 
 
-
-
-
-
-
-
-
-
-
-// //questions for quiz go here in a string
+// questions for quiz go here in a string
 // function myQuestions 
     
-//         question (1): "What does HTML stand for?",
+//         question: "What does HTML stand for?",
 //         answers: {
 //             A: 'HyperText Markup Logic',
 //             B: 'HyperText Markup List',
@@ -179,21 +174,21 @@ const questions = [
 
 
 
-// // function generateQuiz(questions, quizContainer, resultContainer, submitButton){
-// //     function showQuestions(questions, quizContainer){
+// function generateQuiz(questions, quizContainer, resultContainer, submitButton){
+//     function showQuestions(questions, quizContainer){
 
-// //     }
+//     }
 
-// //     function showResults(questions, quizContainer, resultContainer){
+//     function showResults(questions, quizContainer, resultContainer){
 
-// //     }
+//     }
 
-// //     showQuestions(questions, quizContainer);
+//     showQuestions(questions, quizContainer);
 
-// //     submitButton.onclick = function(){
-// //         showResults(questions, quizContainer, resultContainer);
-// //     }
-// // }
+//     submitButton.onclick = function(){
+//         showResults(questions, quizContainer, resultContainer);
+//     }
+// }
 
 // function showResults(questions, quizContainer, resultsContainer){
 	
@@ -219,7 +214,7 @@ const questions = [
 // 	resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
 // }
 
-// submitButton.onclick = function(){
+// start-btn.onclick = function(){
 //     showResults(questions, quizContainer, resultContainer);
 // }
 
