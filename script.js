@@ -7,7 +7,13 @@ const startButton = generateQuiz
 let  shuffledQuestions, currentQuestionsIndex
 // attempt 3
 
-object.onclick = function(){generateQuiz};
+document.querySelector("#submit-btn").addEventListener("click", function(event) {
+    console.log("Get STARTED!");
+});
+// Let btn = document.createElement("button");
+// btn.innerHTML = "Start Quiz";
+// document.body.appendChild() method
+// object.onclick = function(){generateQuiz};
 
 // attempt 1
 
