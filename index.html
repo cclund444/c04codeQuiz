@@ -8,79 +8,54 @@
         <script defer src="script.js"></script>
     </head>
     <body>
-
-        <div id="quiz"></div>
-
-        <Button> Start Quiz 
-        <button onclick="generateQuiz"></element>
-        </Button>
-        
-        <div id="results"></div>
-        <div class="info_box">
-            <div class="info_tytle">
-                <span>Some Helpful Advise.</span>
-            </div>
-            <div class="info_list">
-                <div class="info"><span>This IS TIMED</span></div>
-                <div class="info">Extra time is subtracted for incorrect responses</div>
-                <div class="info">Think fast, there is a <span> SET LENGTH </span> to try and meet!</div>
-            </div>
-            <div class="buttons">
-                <button class="quit">Exit Quiz</button>
-                <button class="start">Start</button>
-            </div>
+    
+        <p id="quiz-timer"></p>
+    
+        <div>
+            <button id="high-score">High Scores</button>
         </div>
-
-        <div class="quiz_box">
-            <header>
-                <div class="title">"This Quiz"</div>
-                <div class="timer">
-                    <div class="time_text">Time Left</div>
-                    <div class="timer_sec">45</div>
-                </div>
-            </header>
-            <section>
-                <div class="que_text">
-                    <span>What does HTML stand for?</span>
-                </div>
-                <div class="option_list">
-                    <div class="option">
-                        <span>HyperText Markup Logic</span>
-                        <div class="letter"><i class="A"></i></div>
-                    </div>
-                    <div class="option">
-                        <span>HyperText Markup List</span>
-                        <div class="letter"><i class="B"></i></div>
-                    </div>
-                    <div class="option">
-                        <span>HyperText Markup Language</span>
-                        <div class="letter"><i class="C"></i></div>
-                    </div>
-
-                </div>
-            </section>
-
-        <footer>
-            <div class="total_que">
-                <span><p>1</p>of<p>4</p>Questions</span>
-            </div>
-            <button class="next_btn">Next Question</button>
-        </footer>
+    
+        <div id="start-quiz">
+            <h1>
+                Coding Quiz
+            </h1>
+            <p>
+                Try to answer the following code-related questions within the time limit.
+                Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+            </p>
+            <button id="start-btn">Start Quiz</button>
         </div>
-
-        <div class="result_box">
-            <div class="icon">
-                <i class="fas fa-crown"></i>
+    
+        <div id="question-page">
+    
+            <p id="question-title">Question title</p>
+            <div class="question-buttons">
+                <button id="button-a" value="A" class="answerbutton"></button>
+                <button id="button-b" value="B" class="answerbutton"></button>
+                <button id="button-c" value="C" class="answerbutton"></button>
+                <button id="button-d" value="D" class="answerbutton"></button>
             </div>
-            <div class="complete_text">You're Done...Try again</div>
-            <div class="score_text">
-                <span>This attempt, your score was <p>?</p> out of <p>4</p> </span>
-            </div>
-            <div class="buttons">
-                <button class="start">Try Again!</button>
-                <button class="quit">Give Up!</button>
-            </div>
+            <p id="right-or-wrong"></p>
+    
         </div>
-
+    
+        <div id="enter-name">
+            <form>
+                Enter initials:
+                <input id="user-initials" placeholder="initials"></input>
+            </form>
+            <button id="submit-score">Submit</button>
+    
+        </div>
+        <div id="high-score-page">
+            <ol>
+                <li id="user-score"></li>
+                <li></li>
+                <li></li>
+            </ol>
+    
+        </div>
+    </main>
+    <script defer src="script.js"></script>
     </body>
 </html>
