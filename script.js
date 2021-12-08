@@ -1,234 +1,179 @@
-const generateQuiz = document.getElementById('start-btn')
-const nextButton = document.getElementById('next-btn')
-const myQuestions = document.getElementById('myQuestions')
-const questionElement = document.getElementById('question')
-const answerButtonsElement = document.getElementById('answer-buttons')
-const startButton = generateQuiz
-let  shuffledQuestions, currentQuestionsIndex
-// attempt 3
+var questions = [
 
-document.querySelector("#submit-btn").addEventListener("click", function(event) {
-    console.log("Get STARTED!");
-});
-// Let btn = document.createElement("button");
-// btn.innerHTML = "Start Quiz";
-// document.body.appendChild() method
-// object.onclick = function(){generateQuiz};
-
-// attempt 1
-
-function startButton (myQuestions)
-<button onclick='start'>Start Quiz</button>
-nextButton.addEventListener('click', () => {
-    currentQuestionsIndex++
-    setNextQuestion()
-})
-
-function beginQuiz() {
-    startButton("click")
-    click('startQuiz')
-}
-
-function startQuiz() {
-   startButton.classList.add('hide')
-   shuffledQuestions = questions.sort(() => Math.random() - .5)
-   currentQuestionsIndex = 0
-   myQuestions.classList.remove('hide')
-   setNextQuestion()
-}
-
-function setNextQuestion() {
-    resetState()
-    showQuestion(shuffledQuestions[currentQuestionsIndex])
-}
-
-function showQuestion(question) {
-    questionElement.innerText = question.question
-    question.answers.forEach(answer => {
-        const button = document.createElement('button')
-        button.innerText = answer.text
-        button.classList.add('btn')
-        if (answer.correct) {
-            button.dataset.correct = answer.correct
-        }
-        button.addEventListener('click', selectAnswer)
-        answerButtonsElement.appendChild(button)
-    })
-}
-
-function resetState() {
-    clearStatusClass(document.body)
-    nextButton.classList.add('hide')
-    while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
-    }
-}
-
-function selectAnswer(e) {
-    const selectedButton = e.target
-    const correct = selectedButton.dataset.correct
-    setStatusClass(document.body, correct)
-    Array.from(answerButtonsElement.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct)
-    })
-    if (shuffledQuestions.length > currentQuestionsIndex + 1) {
-        nextButton.classList.remove('hide')
-    } else {
-        startQuiz.innerText = 'restart'
-        startQuiz.classList.remove('hide')
-    }
-    nextButton.classList.remove('hide')
-}
-
-function setStatusClass(element, correct) {
-    clearStatusClass(element)
-    if (correct) {
-        element.classList.add('correct')
-    } else {
-        element.classList.add('wrong')
-    }
-}
-
-function clearStatusClass(element) {
-    element.classList.remove('correct')
-    element.classList.remove('wrong')
-}
-
-const questions = [
     {
-        question: 'What does HTML stand for?',
-        answers: [
-             'HyperText Markup Logic', false,
-             'HyperText Markup List', false,
-             'HyperText Markup Language', true
-        ]
+        question: "What does HTML stand for?",
+        A: "HyperText Markup Logic",
+        B: "HyperText Markup List",
+        C: "HyperText Markup Language",
+        correctAnswer: "C",
+    },
+    {
+        question: "What is the best description of JavaScript?",
+        A: "Website stuff",
+        B: "Steps To help Develop WebPages",
+        C: "Computer Programming Language",
+        correctAnswer: "C"
+    },
+    {
+        question: "CSS stands for?",
+        A: "Copy Start Setup",
+        B: "Cascading Style Sheets",
+        C: "CyberText System Stratogies",
+        correctAnswer: "B"
+    },
+    {
+        question: "In coding what are these brackets; () used for?",
+        A: "Function",
+        B: "List",
+        C: "String",
+        correctAnswer: "A"
     }
+
 ]
 
+var startQuiz = document.querySelector("#start-btn");
+var timeLeft = 50;
+var randomQuestion = "";
+var questionEl = document.getElementById("question-title");
+var buttonA = document.getElementById("button-a");
+var buttonB = document.getElementById("button-b");
+var buttonC = document.getElementById("button-c");
+var buttonD = document.getElementById("button-d");
+var currentQuestion = 0;
+var rightOrWrong = document.getElementById("right-or-wrong");
+var quizHomePage = document.getElementById("start-quiz");
+var questionPage = document.getElementById("question-page");
+var highScorePage = document.getElementById("high-score-page");
+var enterInitials = document.getElementById("enter-name");
+var highScoreButton = document.getElementById("high-score");
+var userScore = document.getElementById("user-score");
+var playerName = document.getElementById("enter-name");
+
+var submitScore = document.getElementById("submit-score");
+var userInitials = document.getElementById("user-initials");
+var playerName = "";
+var localScore = "";
+
+// generates the questions after pressing start
+function generateQuestion() {
+
+highScorePage.style.display = "none";
+if (currentQuestion <=4) {
+
+   
+    questionEl.innerHTML = questions[currentQuestion].question;
+    buttonA.innerHTML = questions[currentQuestion].A;
+    buttonB.innerHTML = questions[currentQuestion].B;
+    buttonC.innerHTML = questions[currentQuestion].C;
+    buttonD.innerHTML = questions[currentQuestion].D;
+
+    buttonA.addEventListener("click", checkAnswer);
+    buttonB.addEventListener("click", checkAnswer);
+    buttonC.addEventListener("click", checkAnswer);
+    buttonD.addEventListener("click", checkAnswer);
+
+
+}   else {
+    endGame();
+}
+};
+
+
+// checks to see if answer is right
+function checkAnswer(e) {
+if (e.target.value !== questions[currentQuestion].correctAnswer) {
+    timeLeft -= 10;
+    rightOrWrong.innerHTML = "wrong";
+} else { 
+rightOrWrong.innerHTML = "right";
+}
+
+if (currentQuestion <= 4) {
+
+currentQuestion++;
+
+questionEl.innerHTML = questions[currentQuestion].question;
+buttonA.textContent = questions[currentQuestion].A;
+buttonB.innerHTML = questions[currentQuestion].B;
+buttonC.innerHTML = questions[currentQuestion].C;
+buttonD.innerHTML = questions[currentQuestion].D;
+} else {
+    endGame();
+}
+};
+
+// timer
+var quizTimer;
+var clock = document.getElementById("quiz-timer");
+
+function timer() {
+
+    clock.innerHTML = timeLeft + " seconds remaining.";
+
+    timeLeft--;
+    if (timeLeft === 0) {
+        clearInterval(quizTimer);
+        endGame();
+    } 
+};
+
+
+function nameFunction() {
+localStorage.setItem("name", playerName);
+var localName = localStorage.getItem("name");
+userInitials.innerHTML = localName;
+};
+
+
+
+function endGame() {
+clearInterval(quizTimer);
+
+localStorage.setItem("score", timeLeft.toString());
+
+questionPage.style.display = "none";
+highScorePage.style.display = "none";
+enterInitials.style.display = "unset";
+nameFunction();
+generateHighScore();
+};
+
+
+function generateHighScore() {
+
+localScore = localStorage.getItem("score");
+userScore.innerHTML = localScore;
+
+
+}
 
 
 
 
 
-// // attemp2 bellow
+
+function generateQuiz() {
+quizTimer = setInterval(timer, 1000);
+quizHomePage.style.display = "none";
+questionPage.style.display = "unset";
+};
 
 
-// questions for quiz go here in a string
-// function myQuestions 
-    
-//         question: "What does HTML stand for?",
-//         answers: {
-//             A: 'HyperText Markup Logic',
-//             B: 'HyperText Markup List',
-//             C: 'HyperText Markup Language'
-//         }
-//         correctAnswer: 'C'
-    
-    
-//         question: "What is the best description of JavaScript?",
-//         answers: {
-//             A: 'Website stuff',
-//             B: 'Steps To help Develop WebPages',
-//             C: 'Computer Programming Language'
-//         }
-//         correctAnswer: 'C'
-    
-    
-//         question: "CSS stands for?",
-//         answers: {
-//             A: 'Copy Start Setup',
-//             B: 'Cascading Style Sheets',
-//             C: 'CyberText System Stratogies'
-//         }
-//         correctAnswer: 'B'
-    
-    
-//         question: "In coding what are these brackets; () used for?",
-//         answers: {
-//             A: 'Function',
-//             B: 'List',
-//             C: 'String'
-//         }
-//         correctAnswer: 'A'
+generateQuestion();
+
+questionPage.style.display = "none";
+highScorePage.style.display = "none";
+enterInitials.style.display = "none";
 
 
 
+highScoreButton.addEventListener("click", function(){
+questionPage.style.display = "none";
+enterInitials.style.display = "none";
+quizHomePage.style.display = "none";
+questionPage.style.display = "none";
+highScorePage.style.display = "unset";
+generateHighScore();
+});
 
-// function showQuestions(question, quizContainer){
-//     var output = [];
-//     var answers;
-
-//     for(var i=0; i<questions.length; i++){
-//         answers= [];
-
-//     for (letter in questions[i].answers){
-
-//         answers.push(
-//             + '<input type="radio" name="question'+i+'" value="'+letter+'">'
-//             + letter + ': '
-//             + questions[i].answers[letter]
-//         + '</label>'
-//         );
-//     }
-
-//     output.push(
-//         '<div class="question">' + questions[i].question + '</dive>'
-//         + '<div class="answers">' + answers.join('') + '</div>'
-//     );
-//     }
-//     quizContainer.innerHTML = output.join('');
-
-//     showQuestions(questions, quizContainer);
-// }
-
-
-
-// function generateQuiz(questions, quizContainer, resultContainer, submitButton){
-//     function showQuestions(questions, quizContainer){
-
-//     }
-
-//     function showResults(questions, quizContainer, resultContainer){
-
-//     }
-
-//     showQuestions(questions, quizContainer);
-
-//     submitButton.onclick = function(){
-//         showResults(questions, quizContainer, resultContainer);
-//     }
-// }
-
-// function showResults(questions, quizContainer, resultsContainer){
-	
-// 	var answerContainers = quizContainer.querySelectorAll('.answers');
-	
-// 	var userAnswer = '';
-// 	var numCorrect = 0;
-	
-// 	for(var i=0; i<questions.length; i++){
-
-// 		userAnswer = (answerContainers[i].querySelector('input[name=question'+i+']:checked')||{}).value;
-		
-// 		if(userAnswer===questions[i].correctAnswer){
-// 			numCorrect++;
-		
-// 			answerContainers[i].style.color = 'lightgreen';
-// 		}
-// 		else{
-// 			answerContainers[i].style.color = 'red';
-// 		}
-// 	}
-
-// 	resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
-// }
-
-// start-btn.onclick = function(){
-//     showResults(questions, quizContainer, resultContainer);
-// }
-
-// var quizContainer = document.getElementById('quiz');
-// var resultContainer = document.getElementById('results');
-// var submitButton = document.getElementById('submit');
-
-// generateQuiz(myQuestions, quizContainer, resultsContainer, submitButton);
+startQuiz.addEventListener("click", generateQuiz);
